@@ -1,5 +1,5 @@
 name: ht_kv_storage_shared_preferences
-description: A Very Good Project created by Very Good CLI.
+description: A Flutter implementation of the `HtKVStorageService` interface using the shared_preferences package.
 repository: https://github.com/headlines-toolkit/ht-kv-storage-shared-preferences
 publish_to: none
 
@@ -13,6 +13,7 @@ dependencies:
     git:
       url: https://github.com/headlines-toolkit/ht-kv-storage-service.git
       ref: main
+  shared_preferences: ^2.5.2
 
 dev_dependencies:
   flutter_test:

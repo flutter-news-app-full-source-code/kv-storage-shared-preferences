@@ -12,7 +12,6 @@ dependencies:
   ht_kv_storage_service:
     git:
       url: https://github.com/headlines-toolkit/ht-kv-storage-service.git
-      ref: main
   shared_preferences: ^2.5.2
 
 dev_dependencies:

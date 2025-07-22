@@ -1,21 +1,21 @@
-import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
+import 'package:kv_storage_service/kv_storage_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// {@template ht_kv_storage_shared_preferences}
-/// An implementation of [HtKVStorageService] using the `shared_preferences`
+/// {@template kv_storage_shared_preferences}
+/// An implementation of [KVStorageService] using the `shared_preferences`
 /// package.
 ///
 /// This class provides a persistent key-value storage mechanism suitable for
 /// simple data.
 /// {@endtemplate}
-class HtKvStorageSharedPreferences implements HtKVStorageService {
+class KVStorageSharedPreferences implements KVStorageService {
   /// Creates an instance with a provided [SharedPreferences] instance.
   ///
   /// Visible for testing purposes only.
   /// Allows injecting a mock SharedPreferences.
   /// Use [getInstance] for production code.
   @Deprecated('Use getInstance() for production code. Only for testing.')
-  HtKvStorageSharedPreferences.test(SharedPreferences prefs) : _prefs = prefs {
+  KVStorageSharedPreferences.test(SharedPreferences prefs) : _prefs = prefs {
     // Assign to the static instance for consistency if needed by tests,
     // though ideally tests should manage their own instances.
     _instance = this;
@@ -23,23 +23,23 @@ class HtKvStorageSharedPreferences implements HtKVStorageService {
 
   /// Private constructor to prevent direct instantiation.
   /// Use [getInstance] to obtain an instance.
-  HtKvStorageSharedPreferences._(this._prefs);
+  KVStorageSharedPreferences._(this._prefs);
 
   /// The underlying [SharedPreferences] instance.
   final SharedPreferences _prefs;
 
   /// A static instance variable to hold the singleton instance.
-  static HtKvStorageSharedPreferences? _instance;
+  static KVStorageSharedPreferences? _instance;
 
-  /// Returns the singleton instance of [HtKvStorageSharedPreferences].
+  /// Returns the singleton instance of [KVStorageSharedPreferences].
   ///
   /// Initializes the instance asynchronously if it hasn't been created yet.
   /// Throws a [StorageInitializationException] if initialization fails.
-  static Future<HtKvStorageSharedPreferences> getInstance() async {
+  static Future<KVStorageSharedPreferences> getInstance() async {
     if (_instance == null) {
       try {
         final prefs = await SharedPreferences.getInstance();
-        _instance = HtKvStorageSharedPreferences._(prefs);
+        _instance = KVStorageSharedPreferences._(prefs);
       } catch (e) {
         // Consider logging the stackTrace here
         throw StorageInitializationException(

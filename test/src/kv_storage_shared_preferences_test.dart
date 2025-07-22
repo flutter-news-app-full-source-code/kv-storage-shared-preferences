@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors, deprecated_member_use_from_same_package, lines_longer_than_80_chars
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
-import 'package:ht_kv_storage_shared_preferences/src/ht_kv_storage_shared_preferences.dart';
+import 'package:kv_storage_service/kv_storage_service.dart';
+import 'package:kv_storage_shared_preferences/src/kv_storage_shared_preferences.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -19,9 +19,9 @@ void main() {
     registerFallbackValue(false); // for value (bool)
   });
 
-  group('HtKvStorageSharedPreferences', () {
+  group('KVStorageSharedPreferences', () {
     late MockSharedPreferences mockPrefs;
-    late HtKvStorageSharedPreferences storage;
+    late KVStorageSharedPreferences storage;
 
     // Test data
     const testKey = 'test_key';
@@ -39,7 +39,7 @@ void main() {
       SharedPreferences.setMockInitialValues({});
       mockPrefs = MockSharedPreferences();
       // Use the test constructor for dependency injection
-      storage = HtKvStorageSharedPreferences.test(mockPrefs);
+      storage = KVStorageSharedPreferences.test(mockPrefs);
     });
 
     // --- getInstance Tests ---
@@ -50,8 +50,8 @@ void main() {
     // Basic check if it returns an instance (requires plugin setup)
     // test('getInstance returns an instance', () async {
     //   SharedPreferences.setMockInitialValues({'some_key': 'some_value'});
-    //   final instance = await HtKvStorageSharedPreferences.getInstance();
-    //   expect(instance, isA<HtKvStorageSharedPreferences>());
+    //   final instance = await KVStorageSharedPreferences.getInstance();
+    //   expect(instance, isA<KVStorageSharedPreferences>());
     // });
     // test('getInstance throws StorageInitializationException on failure', () async {
     //   // How to reliably mock SharedPreferences.getInstance() throwing is complex

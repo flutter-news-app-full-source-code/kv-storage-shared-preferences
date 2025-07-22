@@ -1,34 +1,39 @@
-# ht_kv_storage_shared_preferences
+# kv_storage_shared_preferences
 
-A Flutter implementation of the `HtKVStorageService` interface using the [`shared_preferences`](https://pub.dev/packages/shared_preferences) package.
+![coverage: xx%](https://img.shields.io/badge/coverage-91-green)
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+[![License: PolyForm Free Trial](https://img.shields.io/badge/License-PolyForm%20Free%20Trial-blue)](https://polyformproject.org/licenses/free-trial/1.0.0)
 
-This package provides a persistent key-value storage mechanism suitable for simple data, wrapping the `shared_preferences` plugin with a defined interface and robust error handling based on the `ht_kv_storage_service` contract.
+
+A Flutter implementation of the `KVStorageService` interface using the [`shared_preferences`](https://pub.dev/packages/shared_preferences) package.
+
+This package provides a persistent key-value storage mechanism suitable for simple data, wrapping the `shared_preferences` plugin with a defined interface and robust error handling based on the `kv_storage_service` contract.
 
 ## Features
 
-*   Implements the `HtKVStorageService` interface.
+*   Implements the `KVStorageService` interface.
 *   Uses `shared_preferences` for underlying storage on Android, iOS, Linux, macOS, Web, and Windows.
 *   Provides methods for reading and writing `String`, `bool`, `int`, and `double` values.
 *   Includes methods for deleting specific keys (`delete`) and clearing all data (`clearAll`).
-*   Throws specific `StorageException` subtypes (e.g., `StorageWriteException`, `StorageReadException`, `StorageTypeMismatchException`) as defined in `ht_kv_storage_service`.
+*   Throws specific `StorageException` subtypes (e.g., `StorageWriteException`, `StorageReadException`, `StorageTypeMismatchException`) as defined in `kv_storage_service`.
 *   Uses a singleton pattern (`getInstance`) for easy access to the storage instance.
 
 ## Getting started
 
-This package depends on the `ht_kv_storage_service` interface, which needs to be available in your project.
+This package depends on the `kv_storage_service` interface, which needs to be available in your project.
 
 ## Installation
 
 
 ```yaml
 dependencies:
-  ht_kv_storage_shared_preferences:
+  kv_storage_shared_preferences:
     git:
-      url: https://github.com/headlines-toolkit/ht-kv-storage-shared-preferences.git
+      url: https://github.com/flutter-news-app-full-source-code/kv-storage-shared-preferences.git
       ref: main
-  ht_kv_storage_service:
+  kv_storage_service:
     git:
-      url: https://github.com/headlines-toolkit/ht-kv-storage-service.git
+      url: https://github.com/flutter-news-app-full-source-code/kv-storage-service.git
       ref: main
 ```
 
@@ -40,11 +45,11 @@ First, obtain an instance of the storage service. It's recommended to do this on
 
 ```dart
 // Import the service interface AND the key definitions
-import 'package:ht_kv_storage_service/ht_kv_storage_service.dart';
+import 'package:kv_storage_service/kv_storage_service.dart';
 // Import the concrete implementation for initialization
-import 'package:ht_kv_storage_shared_preferences/ht_kv_storage_shared_preferences.dart';
+import 'package:kv_storage_shared_preferences/kv_storage_shared_preferences.dart';
 
-late HtKVStorageService storageService;
+late KVStorageService storageService;
 
 Future<void> main() async {
   // Ensure Flutter bindings are initialized
@@ -52,7 +57,7 @@ Future<void> main() async {
 
   try {
     // Get the singleton instance
-    storageService = await HtKvStorageSharedPreferences.getInstance();
+    storageService = await KVStorageSharedPreferences.getInstance();
   } on StorageInitializationException catch (e) {
     // Handle initialization error (e.g., log, show error message)
     print('Failed to initialize storage: $e');
@@ -109,6 +114,7 @@ Future<void> resetOnboardingStatus() async {
 }
 ```
 
+
 ## Testing
 
 This package includes a comprehensive suite of unit tests. To run the tests and check coverage:
@@ -117,4 +123,11 @@ This package includes a comprehensive suite of unit tests. To run the tests and 
 very_good test --coverage --min-coverage 90
 ```
 
-The tests utilize `mocktail` to mock the `SharedPreferences` dependency, ensuring the logic within `HtKvStorageSharedPreferences` is tested in isolation.
+The tests utilize `mocktail` to mock the `SharedPreferences` dependency, ensuring the logic within `KVStorageSharedPreferences` is tested in isolation.
+
+
+## 🔑 Licensing
+
+This package is source-available and licensed under the [PolyForm Free Trial 1.0.0](LICENSE). Please review the terms before use.
+
+For commercial licensing options that grant the right to build and distribute unlimited applications, please visit the main [**Flutter News App - Full Source Code Toolkit**](https://github.com/flutter-news-app-full-source-code) organization.

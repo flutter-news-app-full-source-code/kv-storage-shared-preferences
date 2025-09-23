@@ -1,133 +1,43 @@
-# kv_storage_shared_preferences
+<div align="center">
+  <img src="https://avatars.githubusercontent.com/u/202675624?s=400&u=dc72a2b53e8158956a3b672f8e52e39394b6b610&v=4" alt="Flutter News App Toolkit Logo" width="220">
+  <h1>KV Storage SharedPreferences</h1>
+  <p><strong>A Flutter implementation of the `KVStorageService` interface using the `shared_preferences` package for the Flutter News App Toolkit.</strong></p>
+</div>
 
-![coverage: xx%](https://img.shields.io/badge/coverage-91-green)
-[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
-[![License: PolyForm Free Trial](https://img.shields.io/badge/License-PolyForm%20Free%20Trial-blue)](https://polyformproject.org/licenses/free-trial/1.0.0)
+<p align="center">
+  <img src="https://img.shields.io/badge/coverage-91%25-green?style=for-the-badge" alt="coverage: 91%">
+  <a href="https://flutter-news-app-full-source-code.github.io/docs/"><img src="https://img.shields.io/badge/LIVE_DOCS-VIEW-slategray?style=for-the-badge" alt="Live Docs: View"></a>
+  <a href="https://github.com/flutter-news-app-full-source-code"><img src="https://img.shields.io/badge/MAIN_PROJECT-BROWSE-purple?style=for-the-badge" alt="Main Project: Browse"></a>
+</p>
 
+This `kv_storage_shared_preferences` package provides a concrete Flutter implementation of the `KVStorageService` interface within the [**Flutter News App Full Source Code Toolkit**](https://github.com/flutter-news-app-full-source-code). It leverages the popular `shared_preferences` package to offer a persistent key-value storage mechanism suitable for simple data across Android, iOS, Linux, macOS, Web, and Windows platforms. This package wraps the underlying `shared_preferences` plugin with a defined interface and robust error handling based on the `kv_storage_service` contract, ensuring consistent and reliable local data management.
 
-A Flutter implementation of the `KVStorageService` interface using the [`shared_preferences`](https://pub.dev/packages/shared_preferences) package.
+## ⭐ Feature Showcase: Cross-Platform Persistent Storage
 
-This package provides a persistent key-value storage mechanism suitable for simple data, wrapping the `shared_preferences` plugin with a defined interface and robust error handling based on the `kv_storage_service` contract.
+This package offers a comprehensive set of features for managing local key-value data using `shared_preferences`.
 
-## Features
+<details>
+<summary><strong>🧱 Core Functionality</strong></summary>
 
-*   Implements the `KVStorageService` interface.
-*   Uses `shared_preferences` for underlying storage on Android, iOS, Linux, macOS, Web, and Windows.
-*   Provides methods for reading and writing `String`, `bool`, `int`, and `double` values.
-*   Includes methods for deleting specific keys (`delete`) and clearing all data (`clearAll`).
-*   Throws specific `StorageException` subtypes (e.g., `StorageWriteException`, `StorageReadException`, `StorageTypeMismatchException`) as defined in `kv_storage_service`.
-*   Uses a singleton pattern (`getInstance`) for easy access to the storage instance.
+### 🚀 `KVStorageService` Implementation
+- **`KVStorageSharedPreferences` Class:** A concrete implementation of the `KVStorageService` interface, providing a standardized way to interact with `shared_preferences`.
+- **Cross-Platform Support:** Utilizes `shared_preferences` for underlying storage, supporting Android, iOS, Linux, macOS, Web, and Windows.
+- **Singleton Access:** Provides a convenient singleton pattern (`getInstance`) for easy and consistent access to the storage instance throughout the application.
 
-## Getting started
+### 🌐 Comprehensive Data Operations
+- **Read/Write Operations:** Implements methods for reading and writing `String`, `bool`, `int`, and `double` values.
+- **Data Deletion:** Includes methods for deleting specific keys (`delete`) and clearing all stored data (`clearAll`).
 
-This package depends on the `kv_storage_service` interface, which needs to be available in your project.
+### 🛡️ Standardized Error Handling
+- **Custom `StorageException` Propagation:** Throws specific `StorageException` subtypes (e.g., `StorageWriteException`, `StorageReadException`, `StorageTypeMismatchException`, `StorageInitializationException`) as defined in `kv_storage_service`, ensuring predictable and consistent error management across the application layers.
 
-## Installation
+### 💉 Interface-Driven Design
+- **Decoupled Logic:** By implementing the `KVStorageService` interface, this package ensures that application logic remains decoupled from the specific `shared_preferences` implementation, allowing for future flexibility and testability.
 
+> **💡 Your Advantage:** You get a meticulously designed, production-quality `shared_preferences` implementation that simplifies local data management, ensures type safety, provides robust error handling, and offers cross-platform compatibility. This package accelerates development by providing a solid foundation for persistent local data storage.
 
-```yaml
-dependencies:
-  kv_storage_shared_preferences:
-    git:
-      url: https://github.com/flutter-news-app-full-source-code/kv-storage-shared-preferences.git
-      ref: main
-  kv_storage_service:
-    git:
-      url: https://github.com/flutter-news-app-full-source-code/kv-storage-service.git
-      ref: main
-```
-
-Then run `flutter pub get`.
-
-## Usage
-
-First, obtain an instance of the storage service. It's recommended to do this once during your app's initialization phase.
-
-```dart
-// Import the service interface AND the key definitions
-import 'package:kv_storage_service/kv_storage_service.dart';
-// Import the concrete implementation for initialization
-import 'package:kv_storage_shared_preferences/kv_storage_shared_preferences.dart';
-
-late KVStorageService storageService;
-
-Future<void> main() async {
-  // Ensure Flutter bindings are initialized
-  WidgetsFlutterBinding.ensureInitialized();
-
-  try {
-    // Get the singleton instance
-    storageService = await KVStorageSharedPreferences.getInstance();
-  } on StorageInitializationException catch (e) {
-    // Handle initialization error (e.g., log, show error message)
-    print('Failed to initialize storage: $e');
-    // Potentially exit or fallback
-    return;
-  }
-
-  runApp(MyApp());
-}
-
-// Example usage within a widget or service:
-Future<void> markOnboardingComplete() async {
-  try {
-    // Use the key constant's string value
-    await storageService.writeBool(
-      key: StorageKey.hasSeenOnboarding.stringValue,
-      value: true,
-    );
-    print('Onboarding status saved successfully.');
-  } on StorageWriteException catch (e) {
-    print('Failed to save onboarding status: $e');
-  }
-}
-
-Future<bool> checkIfOnboardingComplete() async {
-  try {
-    // Use the key constant's string value
-    // Default to false if not found
-    final hasSeen = await storageService.readBool(
-      key: StorageKey.hasSeenOnboarding.stringValue,
-      defaultValue: false,
-    );
-    print('Onboarding seen: $hasSeen');
-    return hasSeen;
-  } on StorageReadException catch (e) {
-    print('Failed to read onboarding status: $e');
-    return false; // Assume not seen on error
-  } on StorageTypeMismatchException catch (e) {
-    print('Stored value for onboarding status is not a bool: $e');
-    // Optionally delete the invalid entry
-    // await storageService.delete(key: StorageKey.hasSeenOnboarding.stringValue);
-    return false; // Assume not seen on type mismatch
-  }
-}
-
-Future<void> resetOnboardingStatus() async {
-  try {
-    // Use the key constant's string value
-    await storageService.delete(key: StorageKey.hasSeenOnboarding.stringValue);
-    print('Onboarding status deleted.');
-  } on StorageDeleteException catch (e) {
-    print('Failed to delete onboarding status: $e');
-  }
-}
-```
-
-
-## Testing
-
-This package includes a comprehensive suite of unit tests. To run the tests and check coverage:
-
-```bash
-very_good test --coverage --min-coverage 90
-```
-
-The tests utilize `mocktail` to mock the `SharedPreferences` dependency, ensuring the logic within `KVStorageSharedPreferences` is tested in isolation.
-
+</details>
 
 ## 🔑 Licensing
 
-This package is source-available and licensed under the [PolyForm Free Trial 1.0.0](LICENSE). Please review the terms before use.
-
-For commercial licensing options that grant the right to build and distribute unlimited applications, please visit the main [**Flutter News App - Full Source Code Toolkit**](https://github.com/flutter-news-app-full-source-code) organization.
+This `kv_storage_shared_preferences` package is an integral part of the [**Flutter News App Full Source Code Toolkit**](https://github.com/flutter-news-app-full-source-code). For comprehensive details regarding licensing, including trial and commercial options for the entire toolkit, please refer to the main toolkit organization page.

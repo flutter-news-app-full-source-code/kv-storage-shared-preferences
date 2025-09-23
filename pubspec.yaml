@@ -12,6 +12,7 @@ dependencies:
   kv_storage_service:
     git:
       url: https://github.com/flutter-news-app-full-source-code/kv-storage-service.git
+      ref: 3bcba6b11fe0480e06e1bedf6eab4159a7c59c53
   shared_preferences: ^2.5.2
 
 dev_dependencies:

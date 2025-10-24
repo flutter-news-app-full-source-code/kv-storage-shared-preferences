@@ -2,6 +2,7 @@ name: kv_storage_shared_preferences
 description: A Flutter implementation of the `KVStorageService` interface using the shared_preferences package.
 repository: https://github.com/flutter-news-app-full-source-code/kv-storage-shared-preferences
 publish_to: none
+version: 1.0.1
 
 environment:
   sdk: ^3.9.0
@@ -12,7 +13,7 @@ dependencies:
   kv_storage_service:
     git:
       url: https://github.com/flutter-news-app-full-source-code/kv-storage-service.git
-      ref: v1.0.0
+      ref: v1.0.1
   shared_preferences: ^2.5.2
 
 dev_dependencies:

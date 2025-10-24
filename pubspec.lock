@@ -84,11 +84,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "v1.0.0"
-      resolved-ref: "3bcba6b11fe0480e06e1bedf6eab4159a7c59c53"
+      ref: "v1.0.1"
+      resolved-ref: "35f1c6369273e693895c7f07ff18d4111c4dfe45"
       url: "https://github.com/flutter-news-app-full-source-code/kv-storage-service.git"
     source: git
-    version: "0.0.0"
+    version: "1.0.1"
   leak_tracker:
     dependency: transitive
     description:
